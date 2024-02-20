@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use App\Models\Tour;
 use App\Models\Travel;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class ToursListTest extends TestCase
@@ -164,39 +163,39 @@ class ToursListTest extends TestCase
 
         $endpoint = "/api/v1/travels/{$travel->slug}/tours";
 
-        $response = $this->get("$endpoint?dateFrom=" . now()->toDateString());
+        $response = $this->get("$endpoint?dateFrom=".now()->toDateString());
         $response->assertStatus(200);
         $response->assertJsonCount(2, 'data');
         $response->assertJsonFragment(['id' => $laterTour->id]);
         $response->assertJsonFragment(['id' => $earlierTour->id]);
 
-        $response = $this->get("$endpoint?dateFrom=" . now()->addDay()->toDateString());
+        $response = $this->get("$endpoint?dateFrom=".now()->addDay()->toDateString());
         $response->assertStatus(200);
         $response->assertJsonCount(1, 'data');
         $response->assertJsonMissing(['id' => $earlierTour->id]);
         $response->assertJsonFragment(['id' => $laterTour->id]);
 
-        $response = $this->get("$endpoint?dateFrom=" . now()->addDays(5)->toDateString());
+        $response = $this->get("$endpoint?dateFrom=".now()->addDays(5)->toDateString());
         $response->assertStatus(200);
         $response->assertJsonCount(0, 'data');
 
-        $response = $this->get("$endpoint?dateTo=" . now()->addDays(5)->toDateString());
+        $response = $this->get("$endpoint?dateTo=".now()->addDays(5)->toDateString());
         $response->assertStatus(200);
         $response->assertJsonCount(2, 'data');
         $response->assertJsonFragment(['id' => $laterTour->id]);
         $response->assertJsonFragment(['id' => $earlierTour->id]);
 
-        $response = $this->get("$endpoint?dateTo=" . now()->addDay()->toDateString());
+        $response = $this->get("$endpoint?dateTo=".now()->addDay()->toDateString());
         $response->assertStatus(200);
         $response->assertJsonCount(1, 'data');
         $response->assertJsonMissing(['id' => $laterTour->id]);
         $response->assertJsonFragment(['id' => $earlierTour->id]);
 
-        $response = $this->get("$endpoint?dateTo=" . now()->subDay()->toDateString());
+        $response = $this->get("$endpoint?dateTo=".now()->subDay()->toDateString());
         $response->assertStatus(200);
         $response->assertJsonCount(0, 'data');
 
-        $response = $this->get("$endpoint?dateFrom=" . now()->addDay()->toDateString() . "&dateTo=" . now()->addDays(5)->toDateString());
+        $response = $this->get("$endpoint?dateFrom=".now()->addDay()->toDateString().'&dateTo='.now()->addDays(5)->toDateString());
         $response->assertStatus(200);
         $response->assertJsonCount(1, 'data');
         $response->assertJsonMissing(['id' => $earlierTour->id]);

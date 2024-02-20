@@ -36,11 +36,11 @@ class CreateUserCommand extends Command
     public function handle()
     {
         $user['name'] = text(
-            label: "Name for the new user",
+            label: 'Name for the new user',
             required: "User's name is required."
         );
         $user['email'] = text(
-            label: "Email for the new user",
+            label: 'Email for the new user',
             required: "User's email is required."
         );
         $user['password'] = password(
@@ -51,20 +51,25 @@ class CreateUserCommand extends Command
         $roles = Role::select('id', 'name')->get();
         if (count($roles) == 0) {
             $this->error('Roles do not exists.');
+
             return -1;
         }
         $defaultRoleIndex = null;
         $roleNames = $roles->map(function (mixed $item, int $key) use (&$defaultRoleIndex) {
-            if ($item->name == 'editor') $defaultRoleIndex = $key;
+            if ($item->name == 'editor') {
+                $defaultRoleIndex = $key;
+            }
+
             return $item->name;
         });
         if ($defaultRoleIndex == null) {
             $this->error("Default role 'editor' does not exist.");
+
             return -1;
         }
 
         $roleName = select(
-            label: "Role of the new user",
+            label: 'Role of the new user',
             options: $roleNames,
             default: $defaultRoleIndex,
         );
@@ -74,7 +79,7 @@ class CreateUserCommand extends Command
         $validator = Validator::make($user, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', Password::defaults()]
+            'password' => ['required', Password::defaults()],
         ]);
         if ($validator->fails()) {
             foreach ($validator->errors()->all() as $error) {
@@ -91,6 +96,7 @@ class CreateUserCommand extends Command
         });
 
         $this->info("User {$user['email']} created successfully.");
+
         return 0;
     }
 }

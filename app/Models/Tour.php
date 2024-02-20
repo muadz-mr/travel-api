@@ -11,7 +11,7 @@ class Tour extends Model
 {
     use HasFactory, HasUuids;
 
-    protected $fillable =[
+    protected $fillable = [
         'travel_id',
         'name',
         'starting_date',

@@ -5,10 +5,9 @@ namespace Tests\Feature;
 use App\Models\Role;
 use App\Models\Travel;
 use App\Models\User;
-use Tests\TestCase;
 use Database\Seeders\RoleSeeder;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class AdminTravelTest extends TestCase
 {

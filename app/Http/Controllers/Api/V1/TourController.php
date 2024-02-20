@@ -31,7 +31,7 @@ class TourController extends Controller
                 // if (!in_array(isset($validated['sortOrder']), ['asc', 'desc'])) return;
                 $query->orderBy($validated['sortBy'], $validated['sortOrder']);
             })
-            ->orderBy('starting_date',)
+            ->orderBy('starting_date')
             ->paginate();
 
         return TourResource::collection($tours);
