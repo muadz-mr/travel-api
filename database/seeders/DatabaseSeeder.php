@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\Role;
 use App\Models\Tour;
 use App\Models\Travel;
 use Illuminate\Database\Seeder;
@@ -16,14 +15,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-        Role::updateOrCreate(['name' => 'admin']);
-        Role::updateOrCreate(['name' => 'editor']);
+        $this->call(RoleSeeder::class);
         Travel::factory(20)->create();
         Tour::factory(10)->create();
     }
