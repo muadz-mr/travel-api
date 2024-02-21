@@ -70,7 +70,7 @@ class CreateUserCommand extends Command
 
         $roleName = select(
             label: 'Role of the new user',
-            options: $roleNames,
+            options: $roleNames->toArray(),
             default: $defaultRoleIndex,
         );
 
