@@ -7,11 +7,21 @@ use App\Http\Requests\LoginRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
+/**
+ * @group Authentication
+ *
+ * APIs for auth-related features
+ */
 class LoginController extends Controller
 {
     /**
-     * Handle the incoming request.
-     */
+     * Login
+     *
+     * This endpoint allows you login and retrieve access token.
+     *
+     * @response status=200 scenario="Success" {"access_token": "2|jdijijdeuhiuf"}
+     * @response status=422 scenario="Data incorrect" {"error": "The provided credentials are incorrect."}
+     **/
     public function __invoke(LoginRequest $request)
     {
         $validated = $request->validated();

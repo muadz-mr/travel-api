@@ -7,26 +7,18 @@ use Illuminate\Validation\Rule;
 
 class ToursListRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
             'priceFrom' => 'numeric',
-            'priceTo' => 'numeric',
+            'priceTo' => 'numeric|gte:priceFrom',
             'dateFrom' => 'date',
-            'dateTo' => 'date',
+            'dateTo' => 'date|after_or_equal:dateFrom',
             'sortBy' => Rule::in(['price']),
             'sortOrder' => Rule::in(['asc', 'desc']),
         ];

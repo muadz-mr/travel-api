@@ -4,21 +4,19 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @bodyParam is_public int Whether the travel can be seen by public. Enum: 0:false, 1:true. Example: 1
+ * @bodyParam name string required The name of the travel. Example: Travel One
+ * @bodyParam description string required. Example: Travel description
+ * @bodyParam number_of_days int required. Example: 4
+ */
 class StoreTravelRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
